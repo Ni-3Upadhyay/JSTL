@@ -1,13 +1,15 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html; charset=UTF-8" isELIgnored="false"
     pageEncoding="UTF-8"%>
 
-<%@ page import="java.sql.Connection"  %>
-<%@ page import="connection.DBConnect" %>    
-    
+<%@ page import="java.sql.Connection " %>
+<%@ page import="connection.DBConnect" %>  
+<%@ page import="DAO.DaoAddStudent" %>  
+<%@ page import="Entity.Student" %> 
+<%@ page import="java.util.*" %>   
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     <%@include file="AllCss.jsp" %>
     
-    <%@page isELIgnored="false" %>
+   
     
 <!DOCTYPE html>
 <html>
@@ -26,13 +28,22 @@
 	 %> --%>
 	 
 	 
-	 
 	 <div class="container p-3">
 	 	<div class="card">
 	 		<div class="card-body">
 	 	
 	 
 	 <p class="text-center  fs-1">All Student Details</p> 
+	
+	<c:if test="${not empty succMsg}">
+		<p class="text-center text-success ">${succMsg}</p>
+		<c:remove var="succMsg"/>
+	</c:if>
+	<c:if test="${not empty failMsg }">
+		<p class="text-center text-success ">${failMsg}</p>
+		<c:remove var="failMsg"/>
+	</c:if>
+	
 	
 	<table class="table">
   <thead>
@@ -45,31 +56,29 @@
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
-      <td><a href="editStudent.jsp" class="btn btn-sm btn-primary">Edit</a>
-      	<a href="" class="btn btn-sm btn-danger ms-1">Delete</a>
+  
+  <%
+  		DaoAddStudent dao = new DaoAddStudent(DBConnect.getConn());
+  		List<Student> stud = dao.getAllStudent(); 
+  		
+  		for(Student s:stud){%>
+  			
+  			<tr>
+      <th scope="row"><%= s.getName() %></th>
+      <td><%= s.getEmail() %></td>
+      <td><%= s.getDob() %></td>
+      <td><%= s.getQualification() %></td>
+      <td><a href="editStudent.jsp?id=<%= s.getId() %>" class="btn btn-sm btn-primary">Edit</a>
+      	<a href="delete?id=<%= s.getId() %>" class="btn btn-sm btn-danger ms-1">Delete</a>
       </td>
     </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
-      <td><a href="editStudent.jsp" class="btn btn-sm btn-primary">Edit</a>
-      	<a href="" class="btn btn-sm btn-danger ms-1">Delete</a></td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td >Larry the Bird</td>
-      <td>Thornton</td>
-      <td>@twitter</td>
-      <td><a href="editStudent.jsp"  class="btn btn-sm btn-primary">Edit</a>
-      	<a href="" class="btn btn-sm btn-danger ms-1">Delete</a></td>
-    </tr>
+  						
+  		<%}
+  
+  %>
+  
+  
+  
     
   </tbody>
 </table>

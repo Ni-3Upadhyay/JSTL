@@ -24,6 +24,15 @@ public class Student {
 		return id;
 	}
 
+	public Student(int id, String name, String dob, String email, String qualification) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.dob = dob;
+		this.email = email;
+		this.qualification = qualification;
+	}
+
 	public void setId(int id) {
 		this.id = id;
 	}

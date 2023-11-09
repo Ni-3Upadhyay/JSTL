@@ -21,9 +21,6 @@
         </li>
         <li class="nav-item">
           <a  style="color:white" class="nav-link" href="addStudent.jsp">Add Student</a>
-        </li> 
-        <li class="nav-item">
-          <a  style="color:white"  class="nav-link" href="editStudent.jsp">Edit Student</a>
         </li>  
      </ul>
   </div>
